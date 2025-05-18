@@ -1,9 +1,12 @@
-const express = require("express")
+const express = require("express");
+const Count = require("./models/visit-count");
 
-const app = express()
+const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-})
+app.get("/", async (req, res) => {
+  const count = await Count.next();
+
+  res.send(`Hello World, this web site has visited ${count} times`);
+});
 
 app.listen(8080, () => console.log(">> listening port 8080"));
